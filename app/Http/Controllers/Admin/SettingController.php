@@ -33,7 +33,7 @@ class SettingController extends Controller
             'facebook' => ['nullable', 'url', 'max:255'],
             'tiktok' => ['nullable', 'url', 'max:255'],
             'youtube' => ['nullable', 'url', 'max:255'],
-            'maps_url' => ['nullable', 'url', 'max:255'],
+            'maps_url' => ['nullable', 'url', 'max:2000'],
             'logo' => ['nullable', 'image', 'max:2048'],
         ]);
 
