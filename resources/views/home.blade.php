@@ -5,63 +5,67 @@
 @section('content')
 
 {{-- HERO --}}
-@if($banners->isNotEmpty())
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @foreach($banners as $i => $banner)
-                <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
-                    @if($banner->tampilkan_teks)
-                        <div class="hero-fallback d-flex align-items-center" style="min-height: 480px; {{ $banner->gambar ? 'background-image:url('.$banner->gambar_url.');background-size:cover;background-position:center;' : '' }}">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-7 text-white py-5">
-                                        <h1 class="display-5 fw-800 mb-3" style="font-weight:800;">{{ $banner->judul }}</h1>
-                                        @if($banner->subjudul)
-                                            <p class="fs-5 mb-4 text-white-50">{{ $banner->subjudul }}</p>
-                                        @endif
-                                        <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
-                                            <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
-                                        </a>
-                                        <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Lihat Layanan</a>
+<section class="py-3 py-md-4">
+    <div class="container">
+        @if($banners->isNotEmpty())
+            <div id="heroCarousel" class="carousel slide rounded-4 overflow-hidden shadow-sm" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach($banners as $i => $banner)
+                        <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
+                            @if($banner->tampilkan_teks)
+                                <div class="hero-fallback hero-slide d-flex align-items-center" style="{{ $banner->gambar ? 'background-image:url('.$banner->gambar_url.');background-size:cover;background-position:center;' : '' }}">
+                                    <div class="px-3 px-md-5">
+                                        <div class="row">
+                                            <div class="col-lg-8 text-white">
+                                                <h1 class="hero-title mb-2">{{ $banner->judul }}</h1>
+                                                @if($banner->subjudul)
+                                                    <p class="mb-3 text-white-50 d-none d-sm-block">{{ $banner->subjudul }}</p>
+                                                @endif
+                                                <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
+                                                    <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
+                                                </a>
+                                                <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 px-md-4 ms-2 d-none d-sm-inline-block">Lihat Layanan</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @else
+                                {{-- Gambar sudah memuat teks/desain lengkap sendiri (poster jadi) — tampilkan apa adanya --}}
+                                <a href="{{ $banner->link_url ?: ($setting->whatsapp_link.'?text='.rawurlencode('Halo Traveline, saya ingin bertanya soal promo ini.')) }}"
+                                   target="_blank" rel="noopener" class="d-block hero-slide">
+                                    <img src="{{ $banner->gambar_url }}" alt="{{ $banner->judul }}" class="w-100 h-100" style="object-fit: cover; object-position: center;">
+                                </a>
+                            @endif
                         </div>
-                    @else
-                        {{-- Gambar sudah memuat teks/desain lengkap sendiri (poster jadi) — tampilkan apa adanya --}}
-                        <a href="{{ $banner->link_url ?: ($setting->whatsapp_link.'?text='.rawurlencode('Halo Traveline, saya ingin bertanya soal promo ini.')) }}"
-                           target="_blank" rel="noopener" class="d-block position-relative">
-                            <img src="{{ $banner->gambar_url }}" alt="{{ $banner->judul }}" class="w-100" style="max-height: 560px; object-fit: cover; object-position: center;">
-                        </a>
-                    @endif
+                    @endforeach
                 </div>
-            @endforeach
-        </div>
-        @if($banners->count() > 1)
-            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-        @endif
-    </div>
-@else
-    <div class="hero-fallback d-flex align-items-center" style="min-height: 480px;">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7 text-white py-5">
-                    <h1 class="display-5 mb-3" style="font-weight:800;">{{ $setting->tagline ?? 'Agendakan Perjalananmu Bersama Traveline' }}</h1>
-                    <p class="fs-5 mb-4 text-white-50">{{ $setting->deskripsi }}</p>
-                    <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
-                        <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
-                    </a>
-                    <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Lihat Layanan</a>
+                @if($banners->count() > 1)
+                    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </button>
+                @endif
+            </div>
+        @else
+            <div class="hero-fallback hero-slide d-flex align-items-center rounded-4 overflow-hidden shadow-sm">
+                <div class="px-3 px-md-5">
+                    <div class="row">
+                        <div class="col-lg-8 text-white">
+                            <h1 class="hero-title mb-2">{{ $setting->tagline ?? 'Agendakan Perjalananmu Bersama Traveline' }}</h1>
+                            <p class="mb-3 text-white-50 d-none d-sm-block">{{ $setting->deskripsi }}</p>
+                            <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
+                                <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
+                            </a>
+                            <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 px-md-4 ms-2 d-none d-sm-inline-block">Lihat Layanan</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
-@endif
+</section>
 
 {{-- KATEGORI LAYANAN --}}
 <section class="py-5 bg-tl-cream">

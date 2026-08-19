@@ -32,6 +32,22 @@
         .hero-fallback {
             background: linear-gradient(135deg, var(--tl-blue) 0%, var(--tl-blue-light) 60%, var(--tl-orange) 150%);
         }
+        .hero-slide {
+            height: 34vw;
+            min-height: 200px;
+            max-height: 360px;
+        }
+        .hero-title {
+            font-weight: 800;
+            font-size: 1.4rem;
+            line-height: 1.25;
+        }
+        @media (min-width: 576px) {
+            .hero-title { font-size: 1.9rem; }
+        }
+        @media (min-width: 992px) {
+            .hero-title { font-size: 2.4rem; }
+        }
         .card-layanan { transition: transform .15s ease, box-shadow .15s ease; border: 1px solid #eee; }
         .card-layanan:hover { transform: translateY(-4px); box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.08); }
         .badge-kategori { background-color: var(--tl-cream); color: var(--tl-blue); font-weight: 600; }
@@ -45,6 +61,9 @@
         footer a { color: #cfe3f0; text-decoration: none; }
         footer a:hover { color: #fff; }
         .section-title { font-weight: 800; color: var(--tl-blue); }
+        .pagination .page-link { color: var(--tl-blue); border-color: #e5e5e5; }
+        .pagination .page-item.active .page-link { background-color: var(--tl-orange); border-color: var(--tl-orange); }
+        .pagination .page-item.disabled .page-link { color: #bbb; }
     </style>
     @stack('styles')
 </head>
