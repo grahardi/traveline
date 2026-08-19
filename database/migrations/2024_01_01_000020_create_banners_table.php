@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('subjudul')->nullable();
-            $table->string('gambar');
+            $table->string('gambar')->nullable();
             $table->string('link_url')->nullable();
             $table->unsignedInteger('urutan')->default(0);
             $table->boolean('aktif')->default(true);
