@@ -55,6 +55,33 @@
     </div>
 @endif
 
+{{-- PROMO SPESIAL --}}
+<section class="py-5" style="background: linear-gradient(180deg, var(--tl-blue) 0%, #082c44 100%);">
+    <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+            <div class="col-lg-5 mx-auto text-center">
+                <img src="{{ asset('images/promo/malang-jakarta-bogor-tangerang.jpg') }}"
+                     alt="Promo Malang - Jakarta, Bogor, Tangerang Rp360.000 per seat"
+                     class="img-fluid rounded-4 shadow-lg" style="max-height: 560px;">
+            </div>
+            <div class="col-lg-6 text-white">
+                <span class="badge bg-tl-orange mb-3 px-3 py-2">🔥 Promo Terbatas</span>
+                <h2 class="fw-800 mb-3" style="font-weight:800;">Malang &ndash; Jakarta, Bogor, Tangerang</h2>
+                <p class="fs-5 text-white-50 mb-4">Harga spesial mulai <span class="text-tl-orange fw-bold">Rp360.000</span> per seat, armada PO Haryanto &ldquo;The Ocean&rdquo; — lengkap AC, TV, charger, leg rest, bantal & selimut, hingga snack. Seat terbatas, booking dari sekarang!</p>
+                <div class="d-flex flex-wrap gap-2 mb-4">
+                    <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya mau tanya promo tiket Malang - Jakarta/Bogor/Tangerang 360K per seat.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
+                        <i class="bi bi-whatsapp me-1"></i> Booking via WhatsApp
+                    </a>
+                </div>
+                <ul class="list-unstyled small text-white-50 mb-0">
+                    <li class="mb-1"><i class="bi bi-telephone-fill text-tl-orange me-2"></i>Traveline Kepanjen — 0851-0357-8000</li>
+                    <li><i class="bi bi-telephone-fill text-tl-orange me-2"></i>Traveline Turen — 0812-3096-2150</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- KATEGORI LAYANAN --}}
 <section class="py-5 bg-tl-cream">
     <div class="container">
