@@ -10,22 +10,30 @@
         <div class="carousel-inner">
             @foreach($banners as $i => $banner)
                 <div class="carousel-item {{ $i === 0 ? 'active' : '' }}">
-                    <div class="hero-fallback d-flex align-items-center" style="min-height: 480px; {{ $banner->gambar ? 'background-image:url('.asset('storage/'.$banner->gambar).');background-size:cover;background-position:center;' : '' }}">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-7 text-white py-5">
-                                    <h1 class="display-5 fw-800 mb-3" style="font-weight:800;">{{ $banner->judul }}</h1>
-                                    @if($banner->subjudul)
-                                        <p class="fs-5 mb-4 text-white-50">{{ $banner->subjudul }}</p>
-                                    @endif
-                                    <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
-                                        <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
-                                    </a>
-                                    <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Lihat Layanan</a>
+                    @if($banner->tampilkan_teks)
+                        <div class="hero-fallback d-flex align-items-center" style="min-height: 480px; {{ $banner->gambar ? 'background-image:url('.$banner->gambar_url.');background-size:cover;background-position:center;' : '' }}">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-7 text-white py-5">
+                                        <h1 class="display-5 fw-800 mb-3" style="font-weight:800;">{{ $banner->judul }}</h1>
+                                        @if($banner->subjudul)
+                                            <p class="fs-5 mb-4 text-white-50">{{ $banner->subjudul }}</p>
+                                        @endif
+                                        <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
+                                            <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
+                                        </a>
+                                        <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-lg rounded-pill px-4 ms-2">Lihat Layanan</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @else
+                        {{-- Gambar sudah memuat teks/desain lengkap sendiri (poster jadi) — tampilkan apa adanya --}}
+                        <a href="{{ $banner->link_url ?: ($setting->whatsapp_link.'?text='.rawurlencode('Halo Traveline, saya ingin bertanya soal promo ini.')) }}"
+                           target="_blank" rel="noopener" class="d-block position-relative">
+                            <img src="{{ $banner->gambar_url }}" alt="{{ $banner->judul }}" class="w-100" style="max-height: 560px; object-fit: cover; object-position: center;">
+                        </a>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -54,33 +62,6 @@
         </div>
     </div>
 @endif
-
-{{-- PROMO SPESIAL --}}
-<section class="py-5" style="background: linear-gradient(180deg, var(--tl-blue) 0%, #082c44 100%);">
-    <div class="container">
-        <div class="row align-items-center g-4 g-lg-5">
-            <div class="col-lg-5 mx-auto text-center">
-                <img src="{{ asset('images/promo/malang-jakarta-bogor-tangerang.jpg') }}"
-                     alt="Promo Malang - Jakarta, Bogor, Tangerang Rp360.000 per seat"
-                     class="img-fluid rounded-4 shadow-lg" style="max-height: 560px;">
-            </div>
-            <div class="col-lg-6 text-white">
-                <span class="badge bg-tl-orange mb-3 px-3 py-2">🔥 Promo Terbatas</span>
-                <h2 class="fw-800 mb-3" style="font-weight:800;">Malang &ndash; Jakarta, Bogor, Tangerang</h2>
-                <p class="fs-5 text-white-50 mb-4">Harga spesial mulai <span class="text-tl-orange fw-bold">Rp360.000</span> per seat, armada PO Haryanto &ldquo;The Ocean&rdquo; — lengkap AC, TV, charger, leg rest, bantal & selimut, hingga snack. Seat terbatas, booking dari sekarang!</p>
-                <div class="d-flex flex-wrap gap-2 mb-4">
-                    <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya mau tanya promo tiket Malang - Jakarta/Bogor/Tangerang 360K per seat.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-4">
-                        <i class="bi bi-whatsapp me-1"></i> Booking via WhatsApp
-                    </a>
-                </div>
-                <ul class="list-unstyled small text-white-50 mb-0">
-                    <li class="mb-1"><i class="bi bi-telephone-fill text-tl-orange me-2"></i>Traveline Kepanjen — 0851-0357-8000</li>
-                    <li><i class="bi bi-telephone-fill text-tl-orange me-2"></i>Traveline Turen — 0812-3096-2150</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
 
 {{-- KATEGORI LAYANAN --}}
 <section class="py-5 bg-tl-cream">

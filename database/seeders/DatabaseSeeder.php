@@ -108,7 +108,19 @@ class DatabaseSeeder extends Seeder
             [
                 'subjudul' => 'Tiket Bus, Travel, Pesawat & Kapal Laut — Segala Jurusan',
                 'gambar' => null,
+                'tampilkan_teks' => true,
                 'urutan' => 1,
+                'aktif' => true,
+            ]
+        );
+
+        Banner::updateOrCreate(
+            ['judul' => 'Promo Malang - Jakarta, Bogor, Tangerang 360K'],
+            [
+                'subjudul' => null,
+                'gambar' => 'images/promo/malang-jakarta-bogor-tangerang-landscape.png',
+                'tampilkan_teks' => false,
+                'urutan' => 2,
                 'aktif' => true,
             ]
         );

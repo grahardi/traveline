@@ -22,6 +22,11 @@
     <label class="form-label">Urutan</label>
     <input type="number" name="urutan" value="{{ old('urutan', $banner->urutan ?? 0) }}" class="form-control" style="max-width:120px;">
 </div>
+<div class="form-check form-switch mb-2">
+    <input type="checkbox" name="tampilkan_teks" value="1" class="form-check-input" id="tampilkan_teks" {{ old('tampilkan_teks', $banner->tampilkan_teks ?? true) ? 'checked' : '' }}>
+    <label class="form-check-label" for="tampilkan_teks">Tampilkan judul & tombol di atas gambar</label>
+</div>
+<small class="text-muted d-block mb-3">Matikan kalau gambar sudah berupa poster/desain lengkap dengan teks sendiri — gambar akan ditampilkan apa adanya tanpa tulisan tambahan.</small>
 <div class="form-check form-switch mb-4">
     <input type="checkbox" name="aktif" value="1" class="form-check-input" id="aktif" {{ old('aktif', $banner->aktif ?? true) ? 'checked' : '' }}>
     <label class="form-check-label" for="aktif">Aktif (ditampilkan di beranda)</label>

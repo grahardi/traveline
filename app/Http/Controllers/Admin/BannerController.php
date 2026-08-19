@@ -78,6 +78,7 @@ class BannerController extends Controller
         unset($data['gambar']);
         $data['urutan'] = $request->integer('urutan');
         $data['aktif'] = $request->boolean('aktif');
+        $data['tampilkan_teks'] = $request->boolean('tampilkan_teks');
 
         return $data;
     }
