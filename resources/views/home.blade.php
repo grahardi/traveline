@@ -21,7 +21,7 @@
                                                 @if($banner->subjudul)
                                                     <p class="mb-3 text-white-50 d-none d-sm-block">{{ $banner->subjudul }}</p>
                                                 @endif
-                                                <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
+                                                <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
                                                     <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
                                                 </a>
                                                 <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 px-md-4 ms-2 d-none d-sm-inline-block">Lihat Layanan</a>
@@ -31,7 +31,7 @@
                                 </div>
                             @else
                                 {{-- Gambar sudah memuat teks/desain lengkap sendiri (poster jadi) — tampilkan apa adanya --}}
-                                <a href="{{ $banner->link_url ?: ($setting->whatsapp_link.'?text='.rawurlencode('Halo Traveline, saya ingin bertanya soal promo ini.')) }}"
+                                <a href="{{ $banner->link_url ?: ($setting->whatsapp_link.'&text='.rawurlencode('Halo Traveline, saya ingin bertanya soal promo ini.')) }}"
                                    target="_blank" rel="noopener" class="d-block hero-slide">
                                     <img src="{{ $banner->gambar_url }}" alt="{{ $banner->judul }}" class="w-100 h-100" style="object-fit: cover; object-position: center;">
                                 </a>
@@ -55,7 +55,7 @@
                         <div class="col-lg-8 text-white">
                             <h1 class="hero-title mb-2">{{ $setting->tagline ?? 'Agendakan Perjalananmu Bersama Traveline' }}</h1>
                             <p class="mb-3 text-white-50 d-none d-sm-block">{{ $setting->deskripsi }}</p>
-                            <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
+                            <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-sm rounded-pill px-3 px-md-4">
                                 <i class="bi bi-whatsapp me-1"></i> Pesan via WhatsApp
                             </a>
                             <a href="{{ route('layanan.index') }}" class="btn btn-outline-light btn-sm rounded-pill px-3 px-md-4 ms-2 d-none d-sm-inline-block">Lihat Layanan</a>
@@ -179,7 +179,7 @@
     <div class="container">
         <h2 class="fw-bold mb-3">Siap Berangkat?</h2>
         <p class="text-white-50 mb-4">Hubungi kami sekarang untuk reservasi tiket atau info lebih lanjut.</p>
-        <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-5">
+        <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin memesan tiket.') }}" target="_blank" class="btn btn-tl-orange btn-lg rounded-pill px-5">
             <i class="bi bi-whatsapp me-1"></i> Chat WhatsApp Sekarang
         </a>
     </div>

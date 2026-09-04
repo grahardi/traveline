@@ -85,7 +85,7 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Kontak</a></li>
                 <li class="nav-item ms-lg-2">
                     @if(!empty($setting->whatsapp))
-                        <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin bertanya seputar layanan.') }}"
+                        <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin bertanya seputar layanan.') }}"
                            target="_blank" rel="noopener" class="btn btn-tl-orange rounded-pill px-3">
                             <i class="bi bi-whatsapp me-1"></i> Pesan Sekarang
                         </a>
@@ -139,7 +139,7 @@
 </footer>
 
 @if(!empty($setting->whatsapp))
-    <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin bertanya seputar layanan.') }}"
+    <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin bertanya seputar layanan.') }}"
        target="_blank" rel="noopener" class="wa-float" title="Chat via WhatsApp">
         <i class="bi bi-whatsapp"></i>
     </a>

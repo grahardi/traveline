@@ -114,7 +114,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <a href="{{ $setting->whatsapp_link }}?text={{ rawurlencode('Halo Traveline, saya ingin tanya ketersediaan armada '.$armada->nama.'.') }}" target="_blank" class="btn btn-tl-orange btn-lg w-100 rounded-pill">
+                        <a href="{{ $setting->whatsapp_link }}&text={{ rawurlencode('Halo Traveline, saya ingin tanya ketersediaan armada '.$armada->nama.'.') }}" target="_blank" class="btn btn-tl-orange btn-lg w-100 rounded-pill">
                             <i class="bi bi-whatsapp me-1"></i> Tanya Ketersediaan
                         </a>
                     </div>
