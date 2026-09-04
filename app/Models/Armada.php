@@ -113,6 +113,10 @@ class Armada extends Model
             return null;
         }
 
+        if (str_starts_with($this->foto_utama, 'images/')) {
+            return asset($this->foto_utama);
+        }
+
         return asset('storage/'.$this->foto_utama);
     }
 }

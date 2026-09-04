@@ -75,6 +75,31 @@ class DatabaseSeeder extends Seeder
         }
 
         Layanan::updateOrCreate(
+            ['nama' => 'Travel Malang - Semarang', 'kategori' => 'travel'],
+            [
+                'asal' => 'Malang',
+                'tujuan' => 'Semarang',
+                'harga' => 230000,
+                'satuan_harga' => 'per orang',
+                'deskripsi' => 'Travel murah jurusan Malang - Salatiga - Ungaran - Semarang, armada Luxio, driver ramah dan profesional.',
+                'aktif' => true,
+                'urutan' => 6,
+            ]
+        );
+
+        Layanan::updateOrCreate(
+            ['nama' => 'Travel Malang - Surabaya (Juanda/Perak)', 'kategori' => 'travel'],
+            [
+                'asal' => 'Malang',
+                'tujuan' => 'Surabaya',
+                'satuan_harga' => 'per orang',
+                'deskripsi' => 'Layanan antar jemput dari dan ke Bandara Djuanda, Pelabuhan Perak, dan Kota Surabaya.',
+                'aktif' => true,
+                'urutan' => 7,
+            ]
+        );
+
+        Layanan::updateOrCreate(
             ['nama' => 'Tiket Pesawat Domestik & Internasional', 'kategori' => 'pesawat'],
             [
                 'deskripsi' => 'Melayani pemesanan tiket pesawat untuk rute domestik maupun internasional dari berbagai maskapai.',
@@ -160,5 +185,150 @@ class DatabaseSeeder extends Seeder
         ])->pluck('id');
 
         $haryanto->layanans()->sync($rutePoHaryanto);
+
+        // Armada Travel — foto asli mobil Hiace Traveline
+        $hiace = Armada::updateOrCreate(
+            ['slug' => 'traveline-hiace'],
+            [
+                'nama' => 'Toyota Hiace - Traveline',
+                'foto_utama' => 'images/armada/traveline-hiace.jpg',
+                'deskripsi' => 'Armada travel/shuttle Traveline untuk trayek Malang - Ngawi, Sragen, Solo, Klaten, dan Jogja. Door to door, berangkat tiap hari.',
+                'fitur_utama' => ['AC', 'Kursi Nyaman', 'Door to Door'],
+                'fitur_lainnya' => ['Driver Profesional', 'Bagasi Luas'],
+                'kapasitas_seat' => 15,
+                'kursi_terbooking' => 0,
+                'aktif' => true,
+                'urutan' => 2,
+            ]
+        );
+
+        $ruteHiace = Layanan::where('kategori', 'travel')->pluck('id');
+        $hiace->layanans()->sync($ruteHiace);
+
+        // Armada Bus ALS — foto asli, untuk trayek Malang - Sumatra
+        $als = Armada::updateOrCreate(
+            ['slug' => 'bus-als-malang-sumatra'],
+            [
+                'nama' => 'PO ALS - Malang Sumatra',
+                'foto_utama' => 'images/armada/bus-als-malang-sumatra.jpg',
+                'deskripsi' => 'Armada bus eksekutif ALS untuk trayek jarak jauh Malang - Sumatra.',
+                'fitur_utama' => ['Executive Class', 'AC', 'Reclining Seat'],
+                'fitur_lainnya' => ['Leg Rest', 'Toilet'],
+                'kapasitas_seat' => 32,
+                'kursi_terbooking' => 0,
+                'aktif' => true,
+                'urutan' => 3,
+            ]
+        );
+
+        $ruteAls = Layanan::where('nama', 'Tiket Bus Malang - Sumatra')->pluck('id');
+        $als->layanans()->sync($ruteAls);
+
+        // Armada lain — diambil dari arsip lama situs Traveline (dongkrakbisnis).
+        // Belum ada foto asli yang berhasil diunduh untuk operator-operator ini
+        // (tersimpan di server lama yang sudah tidak bisa diakses), jadi foto_utama
+        // dikosongkan dulu — tampilan akan pakai gradient default, admin bisa upload
+        // foto asli lewat panel nanti.
+        $buatArmada = function (string $slug, array $data, array $namaRute) {
+            $armada = Armada::updateOrCreate(['slug' => $slug], $data + [
+                'kursi_terbooking' => 0,
+                'aktif' => true,
+            ]);
+            $armada->layanans()->sync(Layanan::whereIn('nama', $namaRute)->pluck('id'));
+
+            return $armada;
+        };
+
+        $buatArmada('pahala-kencana', [
+            'nama' => 'PO Pahala Kencana',
+            'deskripsi' => 'Armada bus AKAP Pahala Kencana melayani trayek Malang - Jakarta, Tangerang, Bogor, Bekasi, dan Bandung, dilengkapi sistem tracking online.',
+            'fitur_utama' => ['AC', 'TV LED', 'Audio Video', 'Leg Rest'],
+            'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Makan & Snack', 'Sistem Tracking Online'],
+            'urutan' => 4,
+        ], [
+            'Tiket Bus Malang - Jakarta', 'Tiket Bus Malang - Tangerang',
+            'Tiket Bus Malang - Bogor', 'Tiket Bus Malang - Bekasi', 'Tiket Bus Malang - Bandung',
+        ]);
+
+        $buatArmada('mtrans-executive', [
+            'nama' => 'Bus Mtrans - Executive Class',
+            'deskripsi' => 'Bus Mtrans kelas eksekutif jurusan Malang - Denpasar (Bali), konfigurasi seat 2-2 dengan 30 kursi.',
+            'fitur_utama' => ['Full AC', 'Reclining Seat', 'LED TV', 'USB Charger'],
+            'fitur_lainnya' => ['Toilet', 'Snack', 'Smoking Room', 'Kursi Tebal & Empuk'],
+            'kapasitas_seat' => 30,
+            'urutan' => 5,
+        ], ['Tiket Bus Malang - Bali']);
+
+        $buatArmada('mtrans-sultan-class', [
+            'nama' => 'Bus Mtrans - Sultan Class',
+            'deskripsi' => 'Varian Mtrans dengan konsep social distancing, konfigurasi seat 1-1-1 untuk kenyamanan dan keamanan ekstra jurusan Malang - Bali.',
+            'fitur_utama' => ['Full AC', 'Seat 1-1-1 (Social Distancing)'],
+            'fitur_lainnya' => ['Kursi Lebih Lega'],
+            'urutan' => 6,
+        ], ['Tiket Bus Malang - Bali']);
+
+        $buatArmada('kramatdjati', [
+            'nama' => 'PO Kramatdjati',
+            'deskripsi' => 'Bus eksekutif Kramatdjati jurusan Malang - Jakarta (Pulogebang, Pondok Pinang, Lebak Bulus, Kampung Rambutan, Cililitan).',
+            'fitur_utama' => ['AC', 'Reclining Seat', 'Smoking Room'],
+            'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Snack & Air Mineral', 'Makan'],
+            'urutan' => 7,
+        ], ['Tiket Bus Malang - Jakarta']);
+
+        $buatArmada('lorena-super-executive', [
+            'nama' => 'Lorena - Super Executive (Double Decker)',
+            'deskripsi' => 'Bus tingkat (double decker) Lorena kelas Super Executive jurusan Malang - Jakarta (Pulogebang, Lebak Bulus), Bekasi (Baranangsiang), dan Bogor (Tajur).',
+            'fitur_utama' => ['Double Decker', 'Seat 2-2', 'Full AC', 'TV/DVD'],
+            'fitur_lainnya' => ['Toilet', 'Reclining Seat', 'Bantal & Selimut', 'Dispenser Air', 'Smoking Room', 'Makan 2X'],
+            'urutan' => 8,
+        ], ['Tiket Bus Malang - Jakarta', 'Tiket Bus Malang - Bogor']);
+
+        $buatArmada('lorena-executive', [
+            'nama' => 'Lorena - Executive Class',
+            'deskripsi' => 'Bus Lorena kelas eksekutif jurusan Malang - Jakarta (Pulogebang, Lebak Bulus, Klari), konfigurasi seat 2-2.',
+            'fitur_utama' => ['Seat 2-2', 'AC', 'TV/DVD', 'Reclining Seat'],
+            'fitur_lainnya' => ['Bantal & Selimut', 'Makan 1X', 'Smoking Room', 'Toilet'],
+            'urutan' => 9,
+        ], ['Tiket Bus Malang - Jakarta']);
+
+        $buatArmada('setiawan', [
+            'nama' => 'PO Setiawan',
+            'deskripsi' => 'Bus Setiawan (khas livery oranye) sudah beroperasi lebih dari 33 tahun, trayek Ponorogo - Denpasar, bisa naik dari kantor Traveline Kepanjen.',
+            'fitur_utama' => ['Executive Class', 'AC', 'Seat 2-2'],
+            'fitur_lainnya' => ['Smoking Room', 'Toilet', 'Makan, Snack & Air Mineral'],
+            'urutan' => 10,
+        ], ['Tiket Bus Malang - Bali']);
+
+        $buatArmada('malang-indah', [
+            'nama' => 'PO Malang Indah',
+            'deskripsi' => 'Bus Malang Indah (livery hijau khas, motto "Work with Heart") berdiri sejak 1980, jurusan Malang - Bali.',
+            'fitur_utama' => ['AC', 'Reclining Seat', 'Leg Rest'],
+            'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Makan 1X', 'Snack & Air Mineral', 'Driver Profesional'],
+            'urutan' => 11,
+        ], ['Tiket Bus Malang - Bali']);
+
+        $buatArmada('purnayasa', [
+            'nama' => 'PO Purnayasa',
+            'deskripsi' => 'Bus Purnayasa kelas eksekutif jurusan Malang - Bali, dilengkapi dispenser kopi & teh gratis.',
+            'fitur_utama' => ['AC', 'Leg Rest', 'Reclining Seat'],
+            'fitur_lainnya' => ['Dispenser Kopi & Teh Gratis', 'Bantal & Selimut', 'Snack & Air Mineral', 'Makan', 'Smoking Room'],
+            'urutan' => 12,
+        ], ['Tiket Bus Malang - Bali']);
+
+        $buatArmada('arimbi-travel-luxio', [
+            'nama' => 'Arimbi Travel - Luxio',
+            'deskripsi' => 'Travel murah armada Luxio jurusan Malang - Salatiga - Ungaran - Semarang.',
+            'fitur_utama' => ['AC', 'Driver Ramah & Profesional'],
+            'fitur_lainnya' => ['Makan 1X'],
+            'urutan' => 13,
+        ], ['Travel Malang - Semarang']);
+
+        $buatArmada('travel-juanda-surabaya', [
+            'nama' => 'Travel Juanda & Surabaya Kota',
+            'deskripsi' => 'Layanan antar jemput dari dan ke Bandara Djuanda, Pelabuhan Perak, dan Kota Surabaya.',
+            'fitur_utama' => ['Antar Jemput Bandara & Pelabuhan'],
+            'fitur_lainnya' => [],
+            'urutan' => 14,
+        ], ['Travel Malang - Surabaya (Juanda/Perak)']);
     }
 }
