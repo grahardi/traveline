@@ -16,12 +16,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Akun admin default — SEGERA ganti password ini setelah deploy!
-        User::updateOrCreate(
+        // firstOrCreate, bukan updateOrCreate — supaya password admin yang sudah
+        // diganti tidak ke-reset balik ke default tiap kali db:seed dijalankan ulang.
+        User::firstOrCreate(
             ['email' => 'admin@traveline.web.id'],
             ['name' => 'Admin Traveline', 'password' => 'traveline123']
         );
 
-        SiteSetting::updateOrCreate(['id' => 1], [
+        // firstOrCreate — supaya pengaturan situs yang sudah diubah admin lewat panel
+        // (nomor WA, alamat, dll) tidak ke-reset balik ke default tiap kali db:seed diulang.
+        SiteSetting::firstOrCreate(['id' => 1], [
             'nama_perusahaan' => 'Traveline Trans Traveller',
             'tagline' => 'Jasa Tiket & Travel Segala Jurusan — Darat, Laut, Udara',
             'deskripsi' => 'Traveline Trans Traveller adalah penyedia jasa transportasi yang melayani tiket bus AKAP, tiket pesawat domestik & internasional, tiket kapal laut (Pelni & swasta), travel/shuttle segala jurusan, serta pengiriman paket kilat.',
