@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Armada;
 use App\Models\Banner;
 use App\Models\Layanan;
 use App\Models\SiteSetting;
@@ -136,5 +137,29 @@ class DatabaseSeeder extends Seeder
                 ['asal_daerah' => $daerah, 'rating' => $rating, 'aktif' => true]
             );
         }
+
+        // Armada contoh — berdasarkan poster promo PO Haryanto "The Ocean"
+        $haryanto = Armada::updateOrCreate(
+            ['slug' => 'po-haryanto-the-ocean'],
+            [
+                'nama' => 'PO Haryanto - The Ocean',
+                'deskripsi' => 'Armada bus eksekutif untuk trayek Malang - Jakarta, Bogor, dan Tangerang. Berangkat tiap hari dengan kenyamanan kelas eksekutif.',
+                'fitur_utama' => ['Class Executif', 'AC', 'TV', 'Charger', 'Leg Rest'],
+                'fitur_lainnya' => ['Bantal & Selimut', 'Toilet', 'Snack', 'Air Mineral'],
+                'kapasitas_seat' => 40,
+                'seat_tersedia' => null,
+                'status_ketersediaan' => 'tersedia',
+                'aktif' => true,
+                'urutan' => 1,
+            ]
+        );
+
+        $rutePoHaryanto = Layanan::whereIn('nama', [
+            'Tiket Bus Malang - Jakarta',
+            'Tiket Bus Malang - Bogor',
+            'Tiket Bus Malang - Tangerang',
+        ])->pluck('id');
+
+        $haryanto->layanans()->sync($rutePoHaryanto);
     }
 }

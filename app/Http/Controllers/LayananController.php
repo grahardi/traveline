@@ -36,7 +36,10 @@ class LayananController extends Controller
 
     public function show(string $slug)
     {
-        $layanan = Layanan::aktif()->where('slug', $slug)->firstOrFail();
+        $layanan = Layanan::aktif()
+            ->with(['armadas' => fn ($q) => $q->aktif()])
+            ->where('slug', $slug)
+            ->firstOrFail();
         $setting = SiteSetting::current();
         $terkait = Layanan::aktif()
             ->where('kategori', $layanan->kategori)

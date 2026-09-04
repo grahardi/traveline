@@ -79,6 +79,7 @@
             <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Beranda</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('layanan.index') }}">Layanan</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('armada.index') }}">Armada</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('testimoni') }}">Testimoni</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">Tentang Kami</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Kontak</a></li>
@@ -116,6 +117,7 @@
                 <h6 class="fw-bold mb-3">Tautan</h6>
                 <ul class="list-unstyled small">
                     <li class="mb-2"><a href="{{ route('layanan.index') }}">Semua Layanan</a></li>
+                    <li class="mb-2"><a href="{{ route('armada.index') }}">Armada Kami</a></li>
                     <li class="mb-2"><a href="{{ route('testimoni') }}">Testimoni Pelanggan</a></li>
                     <li class="mb-2"><a href="{{ route('about') }}">Tentang Kami</a></li>
                     <li class="mb-2"><a href="{{ route('contact') }}">Kontak</a></li>

@@ -25,6 +25,38 @@
                 @if($layanan->deskripsi)
                     <p class="text-muted">{{ $layanan->deskripsi }}</p>
                 @endif
+
+                @if($layanan->armadas->isNotEmpty())
+                    <hr class="my-4">
+                    <h5 class="text-tl-blue mb-3"><i class="bi bi-bus-front me-1"></i>Armada Tersedia di Trayek Ini</h5>
+                    <div class="row g-3">
+                        @foreach($layanan->armadas as $armada)
+                            <div class="col-md-6">
+                                <div class="card card-layanan h-100 shadow-sm">
+                                    <div class="row g-0">
+                                        <div class="col-4">
+                                            @if($armada->foto_utama_url)
+                                                <img src="{{ $armada->foto_utama_url }}" class="w-100 h-100 rounded-start" style="object-fit:cover;min-height:100px;" alt="{{ $armada->nama }}">
+                                            @else
+                                                <div class="hero-fallback h-100 rounded-start" style="min-height:100px;"></div>
+                                            @endif
+                                        </div>
+                                        <div class="col-8">
+                                            <div class="card-body py-2 px-3">
+                                                <p class="fw-600 mb-1 text-tl-blue" style="font-weight:600;">{{ $armada->nama }}</p>
+                                                <span class="badge {{ $armada->status_badge_class }} mb-1">{{ $armada->status_ketersediaan_label }}</span>
+                                                @if($armada->kapasitas_seat)
+                                                    <p class="small text-muted mb-1">{{ $armada->kapasitas_seat }} seat @if(!is_null($armada->seat_tersedia)) &middot; sisa {{ $armada->seat_tersedia }} @endif</p>
+                                                @endif
+                                                <a href="{{ route('armada.show', $armada->slug) }}" class="small text-tl-orange fw-600" style="font-weight:600;">Lihat Detail &rarr;</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
             <div class="col-lg-5">
                 <div class="card shadow-sm border-0 sticky-top" style="top:100px;">

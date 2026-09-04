@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Layanan extends Model
@@ -44,6 +45,11 @@ class Layanan extends Model
     public function scopeUnggulan($query)
     {
         return $query->where('unggulan', true);
+    }
+
+    public function armadas(): BelongsToMany
+    {
+        return $this->belongsToMany(Armada::class, 'armada_layanan');
     }
 
     public function getKategoriLabelAttribute(): string

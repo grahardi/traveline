@@ -35,6 +35,7 @@
         <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
         <a href="{{ route('admin.banners.index') }}" class="{{ request()->routeIs('admin.banners.*') ? 'active' : '' }}"><i class="bi bi-images me-2"></i>Banner</a>
         <a href="{{ route('admin.layanans.index') }}" class="{{ request()->routeIs('admin.layanans.*') ? 'active' : '' }}"><i class="bi bi-signpost-split me-2"></i>Layanan / Rute</a>
+        <a href="{{ route('admin.armadas.index') }}" class="{{ request()->routeIs('admin.armadas.*') ? 'active' : '' }}"><i class="bi bi-bus-front me-2"></i>Armada</a>
         <a href="{{ route('admin.testimonis.index') }}" class="{{ request()->routeIs('admin.testimonis.*') ? 'active' : '' }}"><i class="bi bi-chat-quote me-2"></i>Testimoni</a>
         <a href="{{ route('admin.settings.edit') }}" class="{{ request()->routeIs('admin.settings.*') ? 'active' : '' }}"><i class="bi bi-gear me-2"></i>Pengaturan Situs</a>
         <a href="{{ route('home') }}" target="_blank"><i class="bi bi-box-arrow-up-right me-2"></i>Lihat Situs</a>
