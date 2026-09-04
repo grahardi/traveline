@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -24,7 +25,19 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (! Auth::attempt($credentials, $request->boolean('remember'))) {
+        try {
+            $berhasil = Auth::attempt($credentials, $request->boolean('remember'));
+        } catch (\RuntimeException $e) {
+            // Terjadi kalau kolom "password" di database bukan hash bcrypt yang valid
+            // (misal user ditambahkan manual lewat SQL tanpa di-hash dulu).
+            Log::warning('Login admin gagal karena format password di database tidak valid: '.$e->getMessage());
+
+            return back()->withErrors([
+                'email' => 'Email atau kata sandi salah.',
+            ])->onlyInput('email');
+        }
+
+        if (! $berhasil) {
             return back()->withErrors([
                 'email' => 'Email atau kata sandi salah.',
             ])->onlyInput('email');
