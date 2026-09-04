@@ -120,8 +120,6 @@ class ArmadaController extends Controller
             'fitur_utama' => ['nullable', 'string'],
             'fitur_lainnya' => ['nullable', 'string'],
             'kapasitas_seat' => ['nullable', 'integer', 'min:0'],
-            'seat_tersedia' => ['nullable', 'integer', 'min:0'],
-            'status_ketersediaan' => ['required', 'string', 'in:'.implode(',', array_keys(Armada::STATUS_KETERSEDIAAN))],
             'urutan' => ['nullable', 'integer'],
             'foto_utama' => ['nullable', 'image', 'max:4096'],
             'galeri.*' => ['nullable', 'image', 'max:4096'],

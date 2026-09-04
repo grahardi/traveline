@@ -147,8 +147,7 @@ class DatabaseSeeder extends Seeder
                 'fitur_utama' => ['Class Executif', 'AC', 'TV', 'Charger', 'Leg Rest'],
                 'fitur_lainnya' => ['Bantal & Selimut', 'Toilet', 'Snack', 'Air Mineral'],
                 'kapasitas_seat' => 40,
-                'seat_tersedia' => null,
-                'status_ketersediaan' => 'tersedia',
+                'kursi_terbooking' => 0,
                 'aktif' => true,
                 'urutan' => 1,
             ]

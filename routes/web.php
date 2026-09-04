@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ArmadaController as AdminArmadaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\KetersediaanController;
 use App\Http\Controllers\Admin\LayananController as AdminLayananController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TestimoniController;
@@ -37,6 +38,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('testimonis', TestimoniController::class)->except('show');
         Route::resource('armadas', AdminArmadaController::class)->except('show');
         Route::delete('armadas/{armada}/foto/{foto}', [AdminArmadaController::class, 'hapusFoto'])->name('armadas.foto.destroy');
+
+        Route::get('ketersediaan', [KetersediaanController::class, 'index'])->name('ketersediaan.index');
+        Route::put('ketersediaan/{armada}', [KetersediaanController::class, 'update'])->name('ketersediaan.update');
 
         Route::get('pengaturan', [SettingController::class, 'edit'])->name('settings.edit');
         Route::put('pengaturan', [SettingController::class, 'update'])->name('settings.update');

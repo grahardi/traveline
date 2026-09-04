@@ -12,7 +12,7 @@ class Armada extends Model
     protected $fillable = [
         'nama', 'slug', 'foto_utama', 'deskripsi',
         'fitur_utama', 'fitur_lainnya',
-        'kapasitas_seat', 'seat_tersedia', 'status_ketersediaan',
+        'kapasitas_seat', 'kursi_terbooking',
         'aktif', 'urutan',
     ];
 
@@ -21,7 +21,7 @@ class Armada extends Model
         'fitur_lainnya' => 'array',
         'aktif' => 'boolean',
         'kapasitas_seat' => 'integer',
-        'seat_tersedia' => 'integer',
+        'kursi_terbooking' => 'integer',
     ];
 
     public const STATUS_KETERSEDIAAN = [
@@ -52,6 +52,44 @@ class Armada extends Model
     public function scopeAktif($query)
     {
         return $query->where('aktif', true)->orderBy('urutan');
+    }
+
+    /**
+     * Kursi tersedia dihitung otomatis: kapasitas - kursi terbooking.
+     * Kolom "seat_tersedia" lama (manual) sudah tidak dipakai — accessor ini
+     * menimpanya supaya kode/view lama yang masih memanggil $armada->seat_tersedia tetap jalan.
+     */
+    public function getSeatTersediaAttribute(): ?int
+    {
+        if (is_null($this->kapasitas_seat)) {
+            return null;
+        }
+
+        return max(0, $this->kapasitas_seat - (int) $this->kursi_terbooking);
+    }
+
+    /**
+     * Status dihitung otomatis dari sisa kursi. Kalau kapasitas belum diisi,
+     * dianggap tersedia (default aman, sesuai kursi_terbooking default 0).
+     */
+    public function getStatusKetersediaanAttribute(): string
+    {
+        if (is_null($this->kapasitas_seat) || $this->kapasitas_seat <= 0) {
+            return 'tersedia';
+        }
+
+        $tersisa = $this->seat_tersedia;
+        $ambangTerbatas = max(1, (int) ceil($this->kapasitas_seat * 0.2));
+
+        if ($tersisa <= 0) {
+            return 'penuh';
+        }
+
+        if ($tersisa <= $ambangTerbatas) {
+            return 'terbatas';
+        }
+
+        return 'tersedia';
     }
 
     public function getStatusKetersediaanLabelAttribute(): string

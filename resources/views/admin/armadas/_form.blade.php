@@ -54,19 +54,15 @@
     <div class="col-md-4">
         <label class="form-label">Kapasitas Seat</label>
         <input type="number" name="kapasitas_seat" value="{{ old('kapasitas_seat', $armada->kapasitas_seat ?? '') }}" class="form-control" min="0">
-    </div>
-    <div class="col-md-4">
-        <label class="form-label">Seat Tersedia Saat Ini</label>
-        <input type="number" name="seat_tersedia" value="{{ old('seat_tersedia', $armada->seat_tersedia ?? '') }}" class="form-control" min="0">
-        <small class="text-muted">Update manual — bukan sistem booking real-time.</small>
-    </div>
-    <div class="col-md-4">
-        <label class="form-label">Status Ketersediaan</label>
-        <select name="status_ketersediaan" class="form-select">
-            @foreach(\App\Models\Armada::STATUS_KETERSEDIAAN as $key => $label)
-                <option value="{{ $key }}" @selected(old('status_ketersediaan', $armada->status_ketersediaan ?? 'tersedia') === $key)>{{ $label }}</option>
-            @endforeach
-        </select>
+        @if(isset($armada))
+            <small class="text-muted">
+                Kursi terbooking saat ini: <strong>{{ $armada->kursi_terbooking }}</strong> &middot;
+                sisa <strong>{{ $armada->seat_tersedia ?? '-' }}</strong> seat.
+                Atur di menu <a href="{{ route('admin.ketersediaan.index') }}">Ketersediaan Kursi</a>.
+            </small>
+        @else
+            <small class="text-muted">Kursi terbooking diatur setelah armada disimpan, lewat menu Ketersediaan Kursi.</small>
+        @endif
     </div>
 
     <div class="col-12">

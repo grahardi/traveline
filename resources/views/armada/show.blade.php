@@ -25,13 +25,25 @@
                 {{-- GALERI FOTO --}}
                 @if($armada->fotos->isNotEmpty())
                     <div class="row g-2 mb-4">
-                        @foreach($armada->fotos as $foto)
+                        @foreach($armada->fotos as $i => $foto)
                             <div class="col-4 col-md-3">
-                                <a href="{{ $foto->foto_url }}" target="_blank" rel="noopener">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#galeriModal" data-bs-src="{{ $foto->foto_url }}" class="galeri-thumb d-block">
                                     <img src="{{ $foto->foto_url }}" class="img-fluid rounded-3" style="height:90px;width:100%;object-fit:cover;" alt="Galeri {{ $armada->nama }}">
                                 </a>
                             </div>
                         @endforeach
+                    </div>
+
+                    {{-- MODAL LIGHTBOX GALERI --}}
+                    <div class="modal fade" id="galeriModal" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content bg-dark border-0">
+                                <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 m-3" style="z-index:10;" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                <div class="modal-body p-0 d-flex align-items-center justify-content-center">
+                                    <img id="galeriModalImg" src="" class="img-fluid rounded" style="max-height:80vh;" alt="{{ $armada->nama }}">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endif
 
@@ -111,4 +123,19 @@
         </div>
     </div>
 </section>
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var galeriModal = document.getElementById('galeriModal');
+        if (galeriModal) {
+            galeriModal.addEventListener('show.bs.modal', function (event) {
+                var trigger = event.relatedTarget;
+                var src = trigger.getAttribute('data-bs-src');
+                document.getElementById('galeriModalImg').setAttribute('src', src);
+            });
+        }
+    });
+</script>
+@endpush
 @endsection
