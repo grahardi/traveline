@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="hero-fallback rounded-4" style="min-height:340px;"></div>
+                <img src="{{ asset('images/tentang/kantor-traveline.jpg') }}" alt="Kantor {{ $setting->nama_perusahaan }}" class="img-fluid rounded-4 shadow-sm w-100" style="min-height:340px;object-fit:cover;">
             </div>
         </div>
 
