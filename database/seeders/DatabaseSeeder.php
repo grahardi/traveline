@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             ['Malang', 'Sumatra'], ['Malang', 'Medan'],
         ];
         foreach ($bus as $i => [$asal, $tujuan]) {
-            Layanan::updateOrCreate(
+            Layanan::firstOrCreate(
                 ['nama' => "Tiket Bus {$asal} - {$tujuan}", 'kategori' => 'bus'],
                 [
                     'asal' => $asal,
@@ -65,7 +65,7 @@ class DatabaseSeeder extends Seeder
             ['Malang', 'Klaten'], ['Malang', 'Jogja'],
         ];
         foreach ($travel as $i => [$asal, $tujuan]) {
-            Layanan::updateOrCreate(
+            Layanan::firstOrCreate(
                 ['nama' => "Travel {$asal} - {$tujuan}", 'kategori' => 'travel'],
                 [
                     'asal' => $asal,
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        Layanan::updateOrCreate(
+        Layanan::firstOrCreate(
             ['nama' => 'Travel Malang - Semarang', 'kategori' => 'travel'],
             [
                 'asal' => 'Malang',
@@ -92,7 +92,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Layanan::updateOrCreate(
+        Layanan::firstOrCreate(
             ['nama' => 'Travel Malang - Surabaya (Juanda/Perak)', 'kategori' => 'travel'],
             [
                 'asal' => 'Malang',
@@ -104,7 +104,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Layanan::updateOrCreate(
+        Layanan::firstOrCreate(
             ['nama' => 'Tiket Pesawat Domestik & Internasional', 'kategori' => 'pesawat'],
             [
                 'deskripsi' => 'Melayani pemesanan tiket pesawat untuk rute domestik maupun internasional dari berbagai maskapai.',
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Layanan::updateOrCreate(
+        Layanan::firstOrCreate(
             ['nama' => 'Tiket Kapal Laut (Pelni & Swasta)', 'kategori' => 'kapal'],
             [
                 'deskripsi' => 'Pemesanan tiket kapal laut Pelni maupun perusahaan pelayaran swasta untuk berbagai tujuan.',
@@ -124,7 +124,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Layanan::updateOrCreate(
+        Layanan::firstOrCreate(
             ['nama' => 'Kirim Paket Kilat', 'kategori' => 'paket'],
             [
                 'deskripsi' => 'Layanan pengiriman paket kilat, estimasi sehari sampai untuk tujuan tertentu.',
@@ -134,7 +134,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Banner::updateOrCreate(
+        Banner::firstOrCreate(
             ['judul' => 'Agendakan Perjalananmu Bersama Traveline'],
             [
                 'subjudul' => 'Tiket Bus, Travel, Pesawat & Kapal Laut — Segala Jurusan',
@@ -145,7 +145,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Banner::updateOrCreate(
+        Banner::firstOrCreate(
             ['judul' => 'Promo Malang - Jakarta, Bogor, Tangerang 360K'],
             [
                 'subjudul' => null,
@@ -162,14 +162,40 @@ class DatabaseSeeder extends Seeder
             ['Sari', 'Malang', 'Kirim paket kilat sampai sehari, mantap buat kebutuhan mendadak.', 4],
         ];
         foreach ($testimonis as [$nama, $daerah, $pesan, $rating]) {
-            Testimoni::updateOrCreate(
+            Testimoni::firstOrCreate(
                 ['nama' => $nama, 'pesan' => $pesan],
                 ['asal_daerah' => $daerah, 'rating' => $rating, 'aktif' => true]
             );
         }
 
+        // Perbaikan sekali jalan: kalau sebelumnya sempat ke-seed dengan path .webp,
+        // update foto ke .jpg TANPA menyentuh kolom lain (supaya kursi_terbooking,
+        // deskripsi, dsb. yang mungkin sudah diubah admin tidak ikut ke-reset).
+        $petaFotoJpg = [
+            'po-haryanto-the-ocean' => 'images/armada/po-haryanto.jpg',
+            'pahala-kencana' => 'images/armada/pahala-kencana.jpg',
+            'mtrans-executive' => 'images/armada/mtrans.jpg',
+            'kramatdjati' => 'images/armada/kramatdjati.jpg',
+            'lorena-super-executive' => 'images/armada/lorena-dd.jpg',
+            'setiawan' => 'images/armada/setiawan.jpg',
+            'malang-indah' => 'images/armada/malang-indah.jpg',
+            'purnayasa' => 'images/armada/purnayasa.jpg',
+            'arimbi-travel-luxio' => 'images/armada/arimbi-semarang.jpg',
+            'travel-juanda-surabaya' => 'images/armada/travel-juanda.jpg',
+        ];
+        foreach ($petaFotoJpg as $slug => $fotoBaru) {
+            Armada::where('slug', $slug)->where('foto_utama', 'like', '%.webp')->update(['foto_utama' => $fotoBaru]);
+        }
+        ArmadaFoto::where('foto', 'images/armada/traveline-hiace-2.webp')
+            ->update(['foto' => 'images/armada/traveline-hiace-2.jpg']);
+
+        // Mulai sini pakai firstOrCreate — supaya data armada yang sudah ada
+        // (termasuk kursi_terbooking, deskripsi, foto, status aktif yang mungkin
+        // sudah diubah admin lewat panel) TIDAK ke-reset tiap db:seed diulang.
+        // Trayek (layanans) juga cuma di-sync saat armada baru pertama kali dibuat.
+
         // Armada contoh — berdasarkan poster promo PO Haryanto "The Ocean"
-        $haryanto = Armada::updateOrCreate(
+        $haryanto = Armada::firstOrCreate(
             ['slug' => 'po-haryanto-the-ocean'],
             [
                 'nama' => 'PO Haryanto - The Ocean',
@@ -184,16 +210,17 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $rutePoHaryanto = Layanan::whereIn('nama', [
-            'Tiket Bus Malang - Jakarta',
-            'Tiket Bus Malang - Bogor',
-            'Tiket Bus Malang - Tangerang',
-        ])->pluck('id');
-
-        $haryanto->layanans()->sync($rutePoHaryanto);
+        if ($haryanto->wasRecentlyCreated) {
+            $rutePoHaryanto = Layanan::whereIn('nama', [
+                'Tiket Bus Malang - Jakarta',
+                'Tiket Bus Malang - Bogor',
+                'Tiket Bus Malang - Tangerang',
+            ])->pluck('id');
+            $haryanto->layanans()->sync($rutePoHaryanto);
+        }
 
         // Armada Travel — foto asli mobil Hiace Traveline + 1 foto galeri tambahan
-        $hiace = Armada::updateOrCreate(
+        $hiace = Armada::firstOrCreate(
             ['slug' => 'traveline-hiace'],
             [
                 'nama' => 'Toyota Hiace - Traveline',
@@ -208,16 +235,18 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        ArmadaFoto::updateOrCreate(
+        ArmadaFoto::firstOrCreate(
             ['armada_id' => $hiace->id, 'foto' => 'images/armada/traveline-hiace-2.jpg'],
             ['urutan' => 1]
         );
 
-        $ruteHiace = Layanan::where('kategori', 'travel')->pluck('id');
-        $hiace->layanans()->sync($ruteHiace);
+        if ($hiace->wasRecentlyCreated) {
+            $ruteHiace = Layanan::where('kategori', 'travel')->pluck('id');
+            $hiace->layanans()->sync($ruteHiace);
+        }
 
         // Armada Bus ALS — foto asli, untuk trayek Malang - Sumatra
-        $als = Armada::updateOrCreate(
+        $als = Armada::firstOrCreate(
             ['slug' => 'bus-als-malang-sumatra'],
             [
                 'nama' => 'PO ALS - Malang Sumatra',
@@ -232,16 +261,21 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $ruteAls = Layanan::where('nama', 'Tiket Bus Malang - Sumatra')->pluck('id');
-        $als->layanans()->sync($ruteAls);
+        if ($als->wasRecentlyCreated) {
+            $ruteAls = Layanan::where('nama', 'Tiket Bus Malang - Sumatra')->pluck('id');
+            $als->layanans()->sync($ruteAls);
+        }
 
         // Armada lain — foto asli berhasil didapat dari arsip HTTrack situs lama Traveline.
         $buatArmada = function (string $slug, array $data, array $namaRute) {
-            $armada = Armada::updateOrCreate(['slug' => $slug], $data + [
+            $armada = Armada::firstOrCreate(['slug' => $slug], $data + [
                 'kursi_terbooking' => 0,
                 'aktif' => true,
             ]);
-            $armada->layanans()->sync(Layanan::whereIn('nama', $namaRute)->pluck('id'));
+
+            if ($armada->wasRecentlyCreated) {
+                $armada->layanans()->sync(Layanan::whereIn('nama', $namaRute)->pluck('id'));
+            }
 
             return $armada;
         };
