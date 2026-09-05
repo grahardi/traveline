@@ -173,7 +173,7 @@ class DatabaseSeeder extends Seeder
             ['slug' => 'po-haryanto-the-ocean'],
             [
                 'nama' => 'PO Haryanto - The Ocean',
-                'foto_utama' => 'images/armada/po-haryanto.webp',
+                'foto_utama' => 'images/armada/po-haryanto.jpg',
                 'deskripsi' => 'Armada bus eksekutif untuk trayek Malang - Jakarta, Bogor, dan Tangerang. Berangkat tiap hari dengan kenyamanan kelas eksekutif.',
                 'fitur_utama' => ['Class Executif', 'AC', 'TV', 'Charger', 'Leg Rest'],
                 'fitur_lainnya' => ['Bantal & Selimut', 'Toilet', 'Snack', 'Air Mineral'],
@@ -209,7 +209,7 @@ class DatabaseSeeder extends Seeder
         );
 
         ArmadaFoto::updateOrCreate(
-            ['armada_id' => $hiace->id, 'foto' => 'images/armada/traveline-hiace-2.webp'],
+            ['armada_id' => $hiace->id, 'foto' => 'images/armada/traveline-hiace-2.jpg'],
             ['urutan' => 1]
         );
 
@@ -248,7 +248,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('pahala-kencana', [
             'nama' => 'PO Pahala Kencana',
-            'foto_utama' => 'images/armada/pahala-kencana.webp',
+            'foto_utama' => 'images/armada/pahala-kencana.jpg',
             'deskripsi' => 'Armada bus AKAP Pahala Kencana melayani trayek Malang - Jakarta, Tangerang, Bogor, Bekasi, dan Bandung, dilengkapi sistem tracking online.',
             'fitur_utama' => ['AC', 'TV LED', 'Audio Video', 'Leg Rest'],
             'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Makan & Snack', 'Sistem Tracking Online'],
@@ -260,7 +260,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('mtrans-executive', [
             'nama' => 'Bus Mtrans - Executive Class',
-            'foto_utama' => 'images/armada/mtrans.webp',
+            'foto_utama' => 'images/armada/mtrans.jpg',
             'deskripsi' => 'Bus Mtrans kelas eksekutif jurusan Malang - Denpasar (Bali), konfigurasi seat 2-2 dengan 30 kursi.',
             'fitur_utama' => ['Full AC', 'Reclining Seat', 'LED TV', 'USB Charger'],
             'fitur_lainnya' => ['Toilet', 'Snack', 'Smoking Room', 'Kursi Tebal & Empuk'],
@@ -278,7 +278,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('kramatdjati', [
             'nama' => 'PO Kramatdjati',
-            'foto_utama' => 'images/armada/kramatdjati.webp',
+            'foto_utama' => 'images/armada/kramatdjati.jpg',
             'deskripsi' => 'Bus eksekutif Kramatdjati jurusan Malang - Jakarta (Pulogebang, Pondok Pinang, Lebak Bulus, Kampung Rambutan, Cililitan).',
             'fitur_utama' => ['AC', 'Reclining Seat', 'Smoking Room'],
             'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Snack & Air Mineral', 'Makan'],
@@ -287,7 +287,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('lorena-super-executive', [
             'nama' => 'Lorena - Super Executive (Double Decker)',
-            'foto_utama' => 'images/armada/lorena-dd.webp',
+            'foto_utama' => 'images/armada/lorena-dd.jpg',
             'deskripsi' => 'Bus tingkat (double decker) Lorena kelas Super Executive jurusan Malang - Jakarta (Pulogebang, Lebak Bulus), Bekasi (Baranangsiang), dan Bogor (Tajur).',
             'fitur_utama' => ['Double Decker', 'Seat 2-2', 'Full AC', 'TV/DVD'],
             'fitur_lainnya' => ['Toilet', 'Reclining Seat', 'Bantal & Selimut', 'Dispenser Air', 'Smoking Room', 'Makan 2X'],
@@ -304,7 +304,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('setiawan', [
             'nama' => 'PO Setiawan',
-            'foto_utama' => 'images/armada/setiawan.webp',
+            'foto_utama' => 'images/armada/setiawan.jpg',
             'deskripsi' => 'Bus Setiawan (khas livery oranye) sudah beroperasi lebih dari 33 tahun, trayek Ponorogo - Denpasar, bisa naik dari kantor Traveline Kepanjen.',
             'fitur_utama' => ['Executive Class', 'AC', 'Seat 2-2'],
             'fitur_lainnya' => ['Smoking Room', 'Toilet', 'Makan, Snack & Air Mineral'],
@@ -313,7 +313,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('malang-indah', [
             'nama' => 'PO Malang Indah',
-            'foto_utama' => 'images/armada/malang-indah.webp',
+            'foto_utama' => 'images/armada/malang-indah.jpg',
             'deskripsi' => 'Bus Malang Indah (livery hijau khas, motto "Work with Heart") berdiri sejak 1980, jurusan Malang - Bali.',
             'fitur_utama' => ['AC', 'Reclining Seat', 'Leg Rest'],
             'fitur_lainnya' => ['Toilet', 'Bantal & Selimut', 'Makan 1X', 'Snack & Air Mineral', 'Driver Profesional'],
@@ -322,7 +322,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('purnayasa', [
             'nama' => 'PO Purnayasa',
-            'foto_utama' => 'images/armada/purnayasa.webp',
+            'foto_utama' => 'images/armada/purnayasa.jpg',
             'deskripsi' => 'Bus Purnayasa kelas eksekutif jurusan Malang - Bali, dilengkapi dispenser kopi & teh gratis.',
             'fitur_utama' => ['AC', 'Leg Rest', 'Reclining Seat'],
             'fitur_lainnya' => ['Dispenser Kopi & Teh Gratis', 'Bantal & Selimut', 'Snack & Air Mineral', 'Makan', 'Smoking Room'],
@@ -331,7 +331,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('arimbi-travel-luxio', [
             'nama' => 'Arimbi Travel - Luxio',
-            'foto_utama' => 'images/armada/arimbi-semarang.webp',
+            'foto_utama' => 'images/armada/arimbi-semarang.jpg',
             'deskripsi' => 'Travel murah armada Luxio jurusan Malang - Salatiga - Ungaran - Semarang.',
             'fitur_utama' => ['AC', 'Driver Ramah & Profesional'],
             'fitur_lainnya' => ['Makan 1X'],
@@ -340,7 +340,7 @@ class DatabaseSeeder extends Seeder
 
         $buatArmada('travel-juanda-surabaya', [
             'nama' => 'Travel Juanda & Surabaya Kota',
-            'foto_utama' => 'images/armada/travel-juanda.webp',
+            'foto_utama' => 'images/armada/travel-juanda.jpg',
             'deskripsi' => 'Layanan antar jemput dari dan ke Bandara Djuanda, Pelabuhan Perak, dan Kota Surabaya.',
             'fitur_utama' => ['Antar Jemput Bandara & Pelabuhan'],
             'fitur_lainnya' => [],
